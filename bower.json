@@ -1,0 +1,30 @@
+{
+  "name": "magicMirror",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mzedayda/magicMirror",
+  "authors": [
+    "mzedayda <mzedayda@gmail.com>"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "magic",
+    "mirror",
+    "css",
+    "html",
+    "angular",
+    "calendar",
+    "clock",
+    "news"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.9.0"
+  }
+}
