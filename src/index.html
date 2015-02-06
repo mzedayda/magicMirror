@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mzedayda's Mirror</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<style type="text/css"></style>
+		<script src="../bower_components/moment/moment.js"></script>
+	</head>
+
+	<body onload="start()">
+		<div class="top left">
+			<div id="date" class="date small dimmed"></div><div id="time" class="time">
+			</div><div class="calendar xxsmall"></div>
+		</div>
+		<script>
+			function start()
+			{
+				document.getElementById("time").innerHTML = moment().format("HH:mm:ss");
+				document.getElementById("date").innerHTML = moment().format("dddd, Do MMM, YY");
+				setTimeout(start, 500);
+			}
+		</script>
+	</body>
+</html>
