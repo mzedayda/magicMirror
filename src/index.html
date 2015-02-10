@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Mzedayda's Mirror</title>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="src/css/main.css">
 		<style type="text/css"></style>
 		<script src="../bower_components/moment/moment.js"></script>
 	</head>
@@ -14,6 +14,7 @@
 			</div><div class="calendar xxsmall"></div>
 		</div>
 		<div class="center-hor center-ver">Good morning, Ron</div>
+		<div id="events" class="bottom left xxsmall"></div>
 		<script>
 			function start()
 			{
@@ -22,5 +23,7 @@
 				setTimeout(start, 500);
 			}
 		</script>
+		<script src="src/cal.js"></script>
+		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 	</body>
 </html>
