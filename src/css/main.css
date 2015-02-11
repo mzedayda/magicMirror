@@ -169,6 +169,22 @@ body, html {
 	width: 60px;
 }
 
+.events {
+	/*float: right;*/
+	text-align: right;
+	line-height: 20px;
+}
+
+.eventTime {
+	width: 80px;
+	/*text-align: right;*/
+}
+
+.eventTitle {
+	width: 300px;
+	/*text-align: right;*/
+}
+
 .forecast-table .day
 {
 	color: #999;
@@ -228,4 +244,10 @@ body, html {
   font-style:   normal;
   font-weight:  200;
 }
+
+ul {
+	list-style-type: none;
+	/*width: 300px;*/
+}
+
 
