@@ -180,6 +180,7 @@ body, html {
 
 .eventTitle {
 	width: 500px;
+	font-family: "GanCLM-Bold";
 }
 
 .forecast-table .day
@@ -218,8 +219,6 @@ body, html {
   font-weight:  100;
 }
 
-
-
 @font-face {
   font-family: 'HelveticaNeue-Medium';
   src: url('../../fonts/HelveticaNeue-Medium.eot'); /* IE9 Compat Modes */
@@ -242,4 +241,8 @@ body, html {
   font-weight:  200;
 }
 
-
+@font-face {
+  font-family: 'GanCLM-Bold';
+  font-style:   normal;
+  font-weight:  200;
+}
