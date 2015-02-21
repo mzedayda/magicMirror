@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="magicMirror">	
 	<head>
 		<meta charset="utf-8">
 		<title>Mzedayda's Mirror</title>
 		<link rel="stylesheet" type="text/css" href="src/css/main.css">
-		<style type="text/css"></style>
-		<script src="../bower_components/moment/moment.js"></script>
 	</head>
 
 	<body onload="start()">
 		<div class="top left">
-			<div id="date" class="date small dimmed"></div><div id="time" class="time">
-			</div><div class="calendar xxsmall"></div>
+			<div id="date" class="date small dimmed"></div>
+			<div id="time" class="time"></div>
 		</div>
-		<div class="center-hor center-ver">Good morning, Ron</div>
-		<!-- <div id="events2" class="bottom left xxsmall"></div> -->
-		<table id="events" class="bottom right">
-			<!-- <tr class="small"><td>:היום</td></tr> -->
-			<!-- <tr><td class="eventTitle xsmall">ארוחת בוקר צוותית</td> <td class="eventTime small">9:00</td> </tr>
-			<tr><td class="eventTitle xsmall">מכבי - עירוני קרית שמונה</td> <td class="eventTime small">20:55</td> </tr> -->
+		<div class="center-hor center-ver">Looking good hun</div>
+		<table id="events" class="bottom right" ng-controller="eventsCtrl">
+			<tr class="event" ng-repeat="event in events | toArray | orderBy:'start.dateTime'">
+				<td class="eventTitle xsmall dimmed"> {{event.summary}} </td>
+				<td class="eventTime xsmall"> {{(event.start.dateTime | amDateFormat:'HH:mm') || "כל היום"}}</td>
+			</tr>
 		</table>
+
+
+		<script src="https://apis.google.com/js/client.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular.min.js"></script>
+		<script src="../bower_components/moment/moment.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
+	    <script src="../bower_components/ngGAPI/gapi.js"></script>
+	    <script type="text/javascript" src="../lib/index.js"></script>
 		<script>
 			function start()
 			{
@@ -27,8 +33,6 @@
 				document.getElementById("date").innerHTML = moment().format("dddd, Do MMM, YY");
 				setTimeout(start, 500);
 			}
-		</script>
-		<script src="src/cal.js"></script>
-		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+		</script>		
 	</body>
 </html>

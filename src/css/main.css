@@ -170,19 +170,16 @@ body, html {
 }
 
 .events {
-	/*float: right;*/
 	text-align: right;
 	line-height: 20px;
 }
 
 .eventTime {
 	width: 80px;
-	/*text-align: right;*/
 }
 
 .eventTitle {
-	width: 300px;
-	/*text-align: right;*/
+	width: 500px;
 }
 
 .forecast-table .day
@@ -243,11 +240,6 @@ body, html {
        url('../../fonts/HelveticaNeue-Light.svg#7384ecabcada72f0e077cd45d8e1c705') format('svg'); /* Legacy iOS */      
   font-style:   normal;
   font-weight:  200;
-}
-
-ul {
-	list-style-type: none;
-	/*width: 300px;*/
 }
 
 
