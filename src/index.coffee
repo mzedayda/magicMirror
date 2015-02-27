@@ -1,9 +1,13 @@
-angular.module('magicMirror',['angularMoment', 'gapi'])
+angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
 	.value('GoogleApp', {
 		apiKey: 'AIzaSyBfqIoc4HHaCLhs4SzCQARpmshg2qeKYtY'
 		clientId: '532617458069-u3ejhlpj99smmdshbb7maera4traa68d.apps.googleusercontent.com'
 		scopes: 'https://www.googleapis.com/auth/calendar.readonly'
 	})
+	.value('TIME', {seconds: 1000, minutes: 60*1000, hours: 60*60*1000, days: 24*60*60*1000})
+	.run( (amMoment) ->
+	    amMoment.changeLocale 'he'
+	)
 	.filter('toArray', () ->
 		return (items) ->
 			filtered = []
@@ -11,13 +15,13 @@ angular.module('magicMirror',['angularMoment', 'gapi'])
 				filtered.push item
 			filtered
 	)
-	.controller 'eventsCtrl', ($scope, GAPI, Calendar) ->
+	.filter('floor', () ->
+		return (number) ->
+			Math.floor number
+	)
+	.controller('eventsCtrl', (TIME, $scope, GAPI, Calendar) ->
 		$scope.authorize = (callback) ->
 			GAPI.init().then callback
-
-		minutes = 1000 * 60
-		hours = 60 * minutes
-		updateInterval = 10 * minutes
 
 		today = () ->
 			now = new Date();
@@ -44,4 +48,25 @@ angular.module('magicMirror',['angularMoment', 'gapi'])
 								$scope.events[event.id] = event
 
 		$scope.getEvents()
-		setInterval $scope.getEvents, updateInterval
+		setInterval $scope.getEvents, 3 * TIME.hours
+	)
+	.controller('weatherCtrl', (TIME, $scope, $http) ->
+		$scope.styles = [
+			{color:"#DDD"}
+			{color:"#CCC"}
+			{color:"#AAA"}
+			{color:"#999"}
+			{color:"#888"}
+			{color:"#666"}
+			{color:"#444"}
+			{color:"#222"}
+		]
+		$scope.getWeatherData = () ->
+			url = '/weather'
+			$http.get(url).success (response) ->
+				$scope.currentWeather = response.currently
+				$scope.dailyForecast = response.daily.data
+
+		$scope.getWeatherData()
+		setInterval $scope.getWeatherData, 12 * TIME.hours
+	)

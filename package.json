@@ -1,0 +1,24 @@
+{
+  "name": "magicMirror",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/app.js",
+  "dependencies": {
+    "express": "~4.11.2",
+    "request": "~2.53.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mzedayda/magicMirror.git"
+  },
+  "author": "mzedayda",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/mzedayda/magicMirror/issues"
+  },
+  "homepage": "https://github.com/mzedayda/magicMirror"
+}
