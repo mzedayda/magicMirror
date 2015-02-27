@@ -20,14 +20,14 @@ angular.module('magicMirror',['angularMoment', 'gapi'])
 		updateInterval = 10 * minutes
 
 		today = () ->
-			date = new Date();
-			return new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString()
+			now = new Date();
+			return new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
 		yesterday = () ->
-			date = new Date();
-			return new Date(date.getFullYear(), date.getMonth(), date.getDate()-1).toISOString()	
+			now = new Date();
+			return new Date(now.getFullYear(), now.getMonth(), now.getDate()-1).toISOString()	
 		tomorrow = () ->
-			date = new Date();
-			return new Date(date.getFullYear(), date.getMonth(), date.getDate()+1).toISOString()
+			now = new Date();
+			return new Date(now.getFullYear(), now.getMonth(), now.getDate()+2).toISOString()
 
 		$scope.events = {}
 		$scope.getEvents = () ->
