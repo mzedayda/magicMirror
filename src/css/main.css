@@ -77,7 +77,8 @@ body, html {
 {
 	font-size: 20px;
 	letter-spacing: 0px;
-	font-family: "HelveticaNeue-Medium";
+	font-family: "GanCLM-Bold";
+	/*font-family: "HelveticaNeue-Medium";*/
 }
 .xsmall .wi {
 	line-height: 20px;

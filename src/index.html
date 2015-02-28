@@ -8,27 +8,27 @@
 
 	<body onload="start()">
 		<div class="top right">
-			<div id="date" class="date small dimmed"></div>
+			<div id="date" class="date xsmall dimmed"></div>
 			<div id="time" class="time"></div>
 		</div>
 
 		<div class="center-hor center-ver large">שבת שלום יא גבר</div>
 
 		<table id="events" class="bottom right" ng-controller="eventsCtrl">
-			<tr class="event" ng-repeat="event in events | toArray | orderBy:'start.dateTime'">
-				<td class="title xsmall dimmed"> {{event.summary}} </td>
-				<td class="time xsmall"> {{(event.start.dateTime | amCalendar) || "כל היום"}}</td>
+			<tr class="event" ng-repeat="event in events | toArray | orderBy:'start.dateTime || start.date'">
+				<td class="title xsmall xdimmed"> {{event.summary}} </td>
+				<td class="time xsmall"> {{(event.start.dateTime || event.start.date) | amCalendar}}</td>
 			</tr>
 		</table>
 
 		<div id="weather" class="bottom left" ng-controller="weatherCtrl">
 			<div id="currentWeather">
 				<div id="temp">{{currentWeather.temperature | floor}}&deg</div>
-				<div id="icon"><skycon icon="currentWeather.icon" color="'white'" size="65" animated="false"></skycon></div>
+				<div id="icon"><skycon icon="currentWeather.icon" color="'white'" size="65" animated="true"></skycon></div>
 			</div>
 			<table id="dailyForecast">
 				<tr class="day xxsmall" ng-repeat="(key, forecast) in dailyForecast | orderBy:'time'" ng-style="styles[key]">
-					<td><skycon icon="forecast.icon" color="styles[key].color" size="15" animated="false"></skycon></td>
+					<td><skycon icon="forecast.icon" color="styles[key].color" size="15" animated="true"></skycon></td>
 					<td class="maxTemp"> {{forecast.temperatureMax | floor}}&deg</td>
 					<td class="minTemp"> {{forecast.temperatureMin | floor}}&deg</td>
 					<td class="dayName"> {{1000 * forecast.time | amDateFormat:'dddd'}} </td>
@@ -48,9 +48,9 @@
 		<script>
 			function start()
 			{
-				document.getElementById("time").innerHTML = moment().format("H:mm:ss");
+				document.getElementById("time").innerHTML = moment().format("H:mm");
 				document.getElementById("date").innerHTML = moment().format("dddd, Do MMM, YYYY");
-				setTimeout(start, 500);
+				setTimeout(start, 30000);
 			}
 		</script>		
 	</body>

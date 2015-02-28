@@ -6,7 +6,13 @@ angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
 	})
 	.value('TIME', {seconds: 1000, minutes: 60*1000, hours: 60*60*1000, days: 24*60*60*1000})
 	.run( (amMoment) ->
-	    amMoment.changeLocale 'he'
+		moment.locale 'he',
+			calendar:
+				sameDay : '[היום,] LT'
+				nextDay : '[מחר,] LT'
+				nextWeek : 'dddd[,] LT'
+				lastDay : '[אתמול,] LT'
+				sameElse : 'L'
 	)
 	.filter('toArray', () ->
 		return (items) ->
@@ -31,7 +37,7 @@ angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
 			return new Date(now.getFullYear(), now.getMonth(), now.getDate()-1).toISOString()	
 		tomorrow = () ->
 			now = new Date();
-			return new Date(now.getFullYear(), now.getMonth(), now.getDate()+2).toISOString()
+			return new Date(now.getFullYear(), now.getMonth(), now.getDate()+6).toISOString()
 
 		$scope.events = {}
 		$scope.getEvents = () ->
@@ -41,7 +47,7 @@ angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
 						Calendar.listEvents({
 							calendarId: calendar.id
 							singleEvents: true 
-							timeMin: yesterday()
+							timeMin: today()
 							timeMax: tomorrow()
 						}).then (eventList) ->
 							for event in eventList.items
@@ -62,8 +68,7 @@ angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
 			{color:"#222"}
 		]
 		$scope.getWeatherData = () ->
-			url = '/weather'
-			$http.get(url).success (response) ->
+			$http.get('/weather').success (response) ->
 				$scope.currentWeather = response.currently
 				$scope.dailyForecast = response.daily.data
 
