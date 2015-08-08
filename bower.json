@@ -26,7 +26,6 @@
   ],
   "dependencies": {
     "moment": "~2.9.0",
-    "ngGAPI": "https://github.com/christiansmith/ngGAPI.git",
     "angular-skycons": "~2.0.0"
   }
 }

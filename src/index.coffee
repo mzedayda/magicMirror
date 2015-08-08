@@ -1,9 +1,4 @@
-angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
-	.value('GoogleApp', {
-		apiKey: 'AIzaSyBfqIoc4HHaCLhs4SzCQARpmshg2qeKYtY'
-		clientId: '532617458069-u3ejhlpj99smmdshbb7maera4traa68d.apps.googleusercontent.com'
-		scopes: 'https://www.googleapis.com/auth/calendar.readonly'
-	})
+angular.module('magicMirror',['angularMoment', 'angular-skycons'])
 	.value('TIME', {seconds: 1000, minutes: 60*1000, hours: 60*60*1000, days: 24*60*60*1000})
 	.run( (amMoment) ->
 		moment.locale 'he',
@@ -25,33 +20,27 @@ angular.module('magicMirror',['angularMoment', 'gapi', 'angular-skycons'])
 		return (number) ->
 			Math.floor number
 	)
-	.controller('eventsCtrl', (TIME, $scope, GAPI, Calendar) ->
-		$scope.authorize = (callback) ->
-			GAPI.init().then callback
-
-		today = () ->
-			now = new Date();
-			return new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
-		yesterday = () ->
-			now = new Date();
-			return new Date(now.getFullYear(), now.getMonth(), now.getDate()-1).toISOString()	
-		tomorrow = () ->
-			now = new Date();
-			return new Date(now.getFullYear(), now.getMonth(), now.getDate()+6).toISOString()
-
+	.controller('eventsCtrl', (TIME, $scope, $http) ->
 		$scope.events = {}
+		$scope.login = (next) ->
+			$http.get('/authUrl').success (authUrl) ->
+				console.log authUrl
+				win = window.open authUrl, "login & authorize", 'width=800, height=400'
+				authCodePoll = window.setInterval () ->
+					url = win.document.URL
+					unless url.indexOf('n100.example.com') is -1
+						window.clearInterval authCodePoll
+						index = url.indexOf 'code='
+						authCode = url[index+5..url.length]
+						win.close()
+						next authCode
+				, 200
 		$scope.getEvents = () ->
-			$scope.authorize () ->
-				Calendar.listCalendarList().then (calendarList) ->
-					for calendar in calendarList.items
-						Calendar.listEvents({
-							calendarId: calendar.id
-							singleEvents: true 
-							timeMin: today()
-							timeMax: tomorrow()
-						}).then (eventList) ->
-							for event in eventList.items
-								$scope.events[event.id] = event
+			$scope.login (authCode) ->
+				console.log authCode
+				$http.get("/events?authCode=#{authCode}").success (events) ->
+					for event in events
+						$scope.events[event.id] = event
 
 		$scope.getEvents()
 		setInterval $scope.getEvents, 3 * TIME.hours
