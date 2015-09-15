@@ -8,6 +8,7 @@ angular.module('magicMirror',['angularMoment', 'angular-skycons'])
         nextWeek : 'dddd[,] LT'
         lastDay : '[אתמול,] LT'
         sameElse : 'L'
+        lastWeek: 'dddd [שעבר]'
   )
   .filter('toArray', () ->
     return (items) ->
