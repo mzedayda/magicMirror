@@ -14,13 +14,8 @@ app.locals.config =
 	REDIRECT_URL: 'http://n100.example.com:8200/oauth2callback'
 	scopes: ['https://www.googleapis.com/auth/calendar.readonly']
 
-OAuth2 = google.auth.OAuth2;
-oauth2Client = new OAuth2(app.locals.config.CLIENT_ID, app.locals.config.CLIENT_SECRET, app.locals.config.REDIRECT_URL);
-
-app.use (req, res, next) ->
-  res.header "Access-Control-Allow-Origin", "*"
-  res.header "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
-  next()
+OAuth2 = google.auth.OAuth2
+oauth2Client = new OAuth2(app.locals.config.CLIENT_ID, app.locals.config.CLIENT_SECRET, app.locals.config.REDIRECT_URL)
 
 app.get '/', (req, res) ->
 	res.sendFile path.join clientRoot, 'src/index.html'
